@@ -5,11 +5,11 @@ import math
 # ================================================= == interpolación lagrange ================================================== ===================
 def lagrange(x_, y, a):
     """
-         Obtenciòn de la interpolación de Lagrange
-         : param x_: valor de lista de x
-         : param y: valor de lista de y
-         : param a: número a interpolar
-         : return: devuelve el resultado de la interpolación
+    Obtenciòn de la interpolación de Lagrange
+    : param x_: valor de lista de x
+    : param y: valor de lista de y
+    : param a: número a interpolar
+    : return: devuelve el resultado de la interpolación
     """
     ans = 0.0
     for i in range(len(y)):
@@ -24,10 +24,10 @@ def lagrange(x_, y, a):
 # ================================================= == interpolación newton ==================================================
 def table(x_, y):
     """
-         Obtenciòn de la tabla de interpolación de Newton
-         : param x_: valor de la lista x
-         : param y: valor de la lista y
-         : return: vuelve a la tabla de interpolación
+    Obtenciòn de la tabla de interpolación de Newton
+    : param x_: valor de la lista x
+    : param y: valor de la lista y
+    : return: vuelve a la tabla de interpolación
     """
     quotient = [[0] * len(x_) for _ in range(len(x_))]
     for n_ in range(len(x_)):
@@ -35,15 +35,17 @@ def table(x_, y):
     for i in range(1, len(x_)):
         for j in range(i, len(x_)):
             # j-i determina los elementos diagonales
-            quotient[j][i] = (quotient[j][i - 1] - quotient[j - 1][i - 1]) / (x_[j] - x_[j - i])
+            quotient[j][i] = (quotient[j][i - 1] - quotient[j - 1][i - 1]) / (
+                x_[j] - x_[j - i]
+            )
     return quotient
 
 
 def get_corner(result):
     """
-         Obtenga elementos diagonales a través de la tabla de interpolación
-         : resultado del parámetro: resultado de la tabla de interpolación
-         : return: elemento diagonal
+    Obtenga elementos diagonales a través de la tabla de interpolación
+    : resultado del parámetro: resultado de la tabla de interpolación
+    : return: elemento diagonal
     """
     link = []
     for i in range(len(result)):
@@ -53,17 +55,17 @@ def get_corner(result):
 
 def newton(data_set, x_p, x_7):
     """
-         Resultados de la interpolación de Newton
-         : param data_set: diagonal del problema resuelto
-         : param x_p: valor de entrada
-         : param x_7: el valor de lista original de x
-         : return: resultado de la interpolación de Newton
+    Resultados de la interpolación de Newton
+    : param data_set: diagonal del problema resuelto
+    : param x_p: valor de entrada
+    : param x_7: el valor de lista original de x
+    : return: resultado de la interpolación de Newton
     """
     result = data_set[0]
     for i in range(1, len(data_set)):
         p = data_set[i]
         for j in range(i):
-            p *= (x_p - x_7[j])
+            p *= x_p - x_7[j]
         result += p
     return result
 
@@ -78,9 +80,9 @@ def draw_picture(x_list, y_list, node):
         plt.scatter(x_list[i], y_list[i], color="purple", linewidths=2)
     plt.scatter(node[0], node[1], color="blue", linewidth=2)
     plt.show()
-    
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     x = 0.54
     x_1 = [0.4, 0.5, 0.6, 0.7, 0.8]
     y_1 = [-0.9163, -0.6931, -0.5108, -0.3567, -0.2231]
@@ -93,4 +95,3 @@ if __name__ == '__main__':
     print("Interpolación de Newton: {}".format(newton))
     # Dibujar
     draw_picture(x_1, y_1, (x, newton))
-
